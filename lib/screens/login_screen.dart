@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_techer/cubit/cubit.dart';
 import 'package:flutter_techer/cubit/state.dart';
+import 'package:flutter_techer/screens/home_screen.dart';
 import 'package:flutter_techer/screens/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -15,7 +16,13 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider<HomeCubit>(
       create: (context) => HomeCubit(),
       child: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+
+          if(state is LoginSuccessState){
+
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             body: Container(
@@ -99,8 +106,12 @@ class LoginScreen extends StatelessWidget {
                             ))
                       ],
                     ),
-                    MaterialButton(
-                      onPressed: () {},
+                     state is LoginLoadingState ?CircularProgressIndicator(): MaterialButton(
+                      onPressed: () {
+                        HomeCubit.get(context).login(
+                            email: emailController.text,
+                            password: passwordController.text);
+                      },
                       child: Text(
                         'Login',
                         style: TextStyle(color: Colors.white),

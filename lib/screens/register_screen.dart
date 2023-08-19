@@ -13,11 +13,10 @@ class RegisterScreen extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     return BlocProvider<HomeCubit>(
-      create: (context)=>HomeCubit(),
-      child: BlocConsumer<HomeCubit,HomeState>(
-        listener: (context, state){},
-        builder: (context, state)
-        {
+      create: (context) => HomeCubit(),
+      child: BlocConsumer<HomeCubit, HomeState>(
+        listener: (context, state) {},
+        builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
             body: Container(
@@ -48,7 +47,8 @@ class RegisterScreen extends StatelessWidget {
                             color: Colors.green,
                           ),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(30)))),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(30)))),
                     ),
                     SizedBox(
                       height: 20,
@@ -63,7 +63,8 @@ class RegisterScreen extends StatelessWidget {
                             color: Colors.green,
                           ),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(30)))),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(30)))),
                     ),
                     SizedBox(
                       height: 20,
@@ -78,7 +79,8 @@ class RegisterScreen extends StatelessWidget {
                             color: Colors.green,
                           ),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(30)))),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(30)))),
                     ),
                     SizedBox(
                       height: 20,
@@ -94,17 +96,25 @@ class RegisterScreen extends StatelessWidget {
                           ),
                           suffixIcon: Icon(Icons.remove_red_eye),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(30)))),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(30)))),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     MaterialButton(
-                      onPressed: () {},
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      onPressed: () {
+                        HomeCubit.get(context).register(
+                            name: nameController.text,
+                            phone: phoneController.text,
+                            email: emailController.text,
+                            password: passwordController.text);
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
                       child: Text(
                         'Register',
-                        style: TextStyle(fontSize: 20,color: Colors.white),
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       color: Colors.green,
                     )
@@ -112,7 +122,7 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ) ;
+          );
         },
 
       ),
