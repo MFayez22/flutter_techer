@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/cubit.dart';
 import '../cubit/state.dart';
 import '../models/group_model.dart';
+import 'groupinfo_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,11 +14,12 @@ class HomeScreen extends StatelessWidget {
     var messageAllGroupController = TextEditingController();
     var groupNameController = TextEditingController();
     return BlocProvider<HomeCubit>(
-      create: (context) => HomeCubit()..getUserData()..getGroup(),
+      create: (context) => HomeCubit()
+        ..getUserData()
+        ..getGroup(),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
-
           HomeCubit.get(context).getUserData();
           HomeCubit.get(context).getGroup();
           return Scaffold(
@@ -75,7 +77,8 @@ class HomeScreen extends StatelessWidget {
                                   alignment: AlignmentDirectional.bottomEnd,
                                   child: MaterialButton(
                                     onPressed: () {
-                                     HomeCubit().setGroup(name: groupNameController.text);
+                                      HomeCubit().setGroup(
+                                          name: groupNameController.text);
                                     },
                                     child: Text(
                                       'Add',
@@ -396,8 +399,6 @@ class HomeScreen extends StatelessWidget {
       required BuildContext context}) {
     return Row(
       children: [
-
-
         Expanded(
           child: Card(
             shape: RoundedRectangleBorder(
@@ -407,26 +408,24 @@ class HomeScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(1.0),
               child: Card(
-color: Colors.green,
+                color: Colors.green,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 clipBehavior: Clip.hardEdge,
                 child: InkWell(
                   onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) =>
-                    //             GroupInfoScreen(
-                    //               model: model,
-                    //             )));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GroupInfoScreen(
+                                  model: model,
+                                )));
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10.0, vertical: 10.0),
                     child: Row(
                       children: [
-
                         Icon(
                           Icons.group_rounded,
                         ),
@@ -439,7 +438,6 @@ color: Colors.green,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20.0),
                         )),
-
                       ],
                     ),
                   ),
@@ -453,7 +451,7 @@ color: Colors.green,
         ),
         Card(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           elevation: 5.0,
           clipBehavior: Clip.hardEdge,
           child: InkWell(

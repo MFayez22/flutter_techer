@@ -52,7 +52,7 @@ class HomeCubit extends Cubit<HomeState> {
       required String email,
       required String password}) {
     UserModel userModel = UserModel(
-        name: name, phone: phone, email: email, id: id, password: password);
+        name: name, phone: phone, email: email, id: id, password: password,isAdmin: true);
     FirebaseFirestore.instance
         .collection('users')
         .doc(id)
@@ -67,7 +67,9 @@ class HomeCubit extends Cubit<HomeState> {
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
           uId = value.user!.uid;
+          getUserData();
           emit(LoginSuccessState());
+
     })
         .catchError((error) {
           emit(LoginErrorState(error));
@@ -86,6 +88,12 @@ class HomeCubit extends Cubit<HomeState> {
         .get()
         .then((value) {
       userModel = UserModel.forJson(value.data()!);
+      if(userModel!.isAdmin! )
+      {
+        emit(ISAdminSuccessState());
+      }else{
+        emit(ISAdminErrorState());
+      }
       emit(HomeGetUserDataSuccessState());
     }).catchError((error) {
       emit(HomeGetUserDataErrorState(error.toString()));
@@ -99,7 +107,8 @@ class HomeCubit extends Cubit<HomeState> {
   }) {
     emit(HomeSetGroupLoadingState());
     GroupModel groupModel = GroupModel(
-        name: name, );
+        name: name,
+   );
     FirebaseFirestore.instance
         .collection('users')
         .doc(uId)
@@ -112,6 +121,7 @@ class HomeCubit extends Cubit<HomeState> {
           .collection('groups')
           .doc(value.id)
           .update(GroupModel(
+
           name: name,
 
           id: value.id,
@@ -145,6 +155,7 @@ class HomeCubit extends Cubit<HomeState> {
       groupId: groupId,
       groupName: groupName,
       userId: uId,
+      isAdmin: false,
     );
     FirebaseFirestore.instance
         .collection('users')
@@ -170,11 +181,12 @@ class HomeCubit extends Cubit<HomeState> {
           phone: phone,
           groupId: groupId,
           userId: uId,
-          groupName: groupName
+          groupName: groupName,
+        isAdmin: false,
       ).toMap())
           .then((value) {
         FirebaseFirestore.instance
-            .collection('students')
+            .collection('users')
             .doc(studentUId)
             .set(StudentModel(
             name: name,
@@ -184,6 +196,7 @@ class HomeCubit extends Cubit<HomeState> {
             phone: phone,
             groupId: groupId,
             groupName: groupName,
+            isAdmin: false,
             userId: uId
         ).toMap()).then((value) {
           // FirebaseFirestore.instance

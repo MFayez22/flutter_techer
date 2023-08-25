@@ -6,8 +6,9 @@ class UserModel
   String? id;
   String? email;
   String? password;
+  bool? isAdmin;
 
-  UserModel({this.name,this.phone,this.id,this.email,this.password});
+  UserModel({this.name,this.phone,this.id,this.email,this.password,this.isAdmin});
 
 UserModel.forJson(Map<String ,dynamic> json)
 {
@@ -16,6 +17,7 @@ UserModel.forJson(Map<String ,dynamic> json)
   id = json['id'];
   email = json['email'];
   password = json['password'];
+  isAdmin = json['isAdmin'];
 }
 
   Map<String, dynamic> toMap()
@@ -26,6 +28,7 @@ UserModel.forJson(Map<String ,dynamic> json)
       'email' :email,
       'password' :password,
       'phone' :phone,
+      'isAdmin' :isAdmin,
     };
   }
 }

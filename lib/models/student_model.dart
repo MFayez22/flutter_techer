@@ -8,6 +8,7 @@ class StudentModel {
   String? groupId;
   String? groupName;
   String? userId;
+  bool? isAdmin;
 
 
 
@@ -20,6 +21,7 @@ class StudentModel {
     this.groupId,
     this.groupName,
     this.userId,
+    this.isAdmin,
   });
   StudentModel.fromJson(Map<String, dynamic> json)
   {
@@ -31,6 +33,7 @@ class StudentModel {
     groupId = json['groupId'];
     groupName = json['groupName'];
     userId = json['userId'];
+    isAdmin = json['isAdmin'];
 
   }
 
@@ -45,6 +48,7 @@ class StudentModel {
       'groupId' :groupId,
       'groupName' :groupName,
       'userId' :userId,
+      'isAdmin' :isAdmin,
     };
   }
 

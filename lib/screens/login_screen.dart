@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_techer/cubit/cubit.dart';
 import 'package:flutter_techer/cubit/state.dart';
+import 'package:flutter_techer/screens/StudentHome_screen.dart';
 import 'package:flutter_techer/screens/home_screen.dart';
 import 'package:flutter_techer/screens/register_screen.dart';
 
@@ -18,10 +19,14 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
 
-          if(state is LoginSuccessState){
-
+          if( state is ISAdminSuccessState)
+          {
             Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
           }
+          if( state is ISAdminErrorState){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentHomeScreen()));
+          }
+
         },
         builder: (context, state) {
           return Scaffold(

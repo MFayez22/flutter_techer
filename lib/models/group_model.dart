@@ -5,9 +5,11 @@ class GroupModel {
 
 
 
+
   GroupModel({
     this.name,
     this.id,
+
 
   });
   GroupModel.fromJson(Map<String, dynamic> json)
@@ -17,6 +19,8 @@ class GroupModel {
     id = json['id'];
 
 
+
+
   }
 
   Map<String, dynamic> toMap()
@@ -24,6 +28,7 @@ class GroupModel {
     return {
       'name' :name,
       'id' :id,
+
 
     };
   }

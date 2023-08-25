@@ -24,6 +24,10 @@ class LoginErrorState extends HomeState{
 
 class HomeGetUserDataState extends HomeState {}
 
+class ISAdminSuccessState extends HomeState {}
+class ISAdminErrorState extends HomeState {}
+
+
 class HomeLoadingState extends HomeState {}
 
 class HomeGetUserDataSuccessState extends HomeState {}

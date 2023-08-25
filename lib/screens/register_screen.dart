@@ -15,7 +15,12 @@ class RegisterScreen extends StatelessWidget {
     return BlocProvider<HomeCubit>(
       create: (context) => HomeCubit(),
       child: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is RegisterSuccessState){
+
+            Navigator.pop(context);
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
@@ -88,13 +93,14 @@ class RegisterScreen extends StatelessWidget {
                     TextFormField(
                       controller: passwordController,
                       keyboardType: TextInputType.emailAddress,
+                      obscureText: HomeCubit.get(context).isVisible,
                       decoration: InputDecoration(
                           label: Text('Password'),
                           prefixIcon: Icon(
                             Icons.lock,
                             color: Colors.green,
                           ),
-                          suffixIcon: Icon(Icons.remove_red_eye),
+                          suffixIcon: IconButton(onPressed: (){HomeCubit.get(context).changeVisible();}, icon: HomeCubit.get(context).isVisible ?Icon(Icons.remove_red_eye):Icon(Icons.visibility_off)),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
                                   Radius.circular(30)))),
@@ -102,7 +108,7 @@ class RegisterScreen extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    MaterialButton(
+                   state is RegisterLoadingState ? CircularProgressIndicator() : MaterialButton(
                       onPressed: () {
                         HomeCubit.get(context).register(
                             name: nameController.text,
